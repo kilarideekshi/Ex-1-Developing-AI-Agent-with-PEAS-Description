@@ -1,7 +1,7 @@
 # Ex-1-Developing-AI-Agent-with-PEAS-Description
-### Name:
+### Name: Deekshitha K
 
-### Register Number:
+### Register Number: 2305002005
 
 ### Aim:
 To find the PEAS description for the given AI problem and develop an AI agent.
@@ -35,87 +35,68 @@ It’s a framework used to define the task environment for an AI agent clearly.
 5. Personal assistant (like Siri or Alexa)
 ```
 
-### VacuumCleanerAgent
+### E-mail spam filter
 ### Algorithm:
-Step 1: Initialize:
+Step 1: Collect a dataset of emails labeled as Spam or Ham (Not Spam).
 
-Set agent’s location to A
+Step 2: Preprocess the email text by converting to lowercase, removing punctuation, numbers, and stopwords.
 
-Set environment dirt status for locations A and B (True = dirty, False = clean)
+Step 3: Tokenize the text by splitting each email into individual words.
 
-Step 2 :Repeat until all locations are clean (no dirt):
-a. Sense if current location has dirt
-b. If current location has dirt:
-- Suck dirt (set dirt status at current location to False)
-c. Else:
-- If current location is A, move right to location B
-- Else if current location is B, move left to location A
-d. Print the agent’s current location and dirt status (optional for debugging)
+Step 4: Extract features using techniques like Bag of Words or TF-IDF, converting text into numerical vectors.
 
-Step 3: Stop when all locations are clean
+Step 5: Split the dataset into Training Set and Testing Set (e.g., 80% training, 20% testing).
 
-Step 4: Print total steps taken (optional)
+Step 6: Select a classification algorithm, commonly Naive Bayes for spam filtering.
+
+Step 7: Train the model using the training dataset so it learns patterns of spam and ham emails.
+
+Step 8: Test the model on the testing dataset and predict whether emails are Spam or Ham.
+
+Step 9: Evaluate the model’s performance using accuracy, precision, recall, and F1-score.
+
+Step 10: Deploy the model in an email system to automatically filter incoming emails.
+
+Step 11: Continuously update and retrain the model with new data for better accuracy.
 
 ### Program:
 ```
-class VacuumCleanerAgent:
-    def __init__(self):
-        # Initialize the agent's state (location and dirt status)
-        self.location = "A"  # Initial location (can be "A" or "B")
-        self.dirt_status = {"A": False, "B": False}  # Initial dirt status (False means no dirt)
+# Basic Email Spam Filter in Python
 
-    def move_left(self):
-        # Move the agent to the left if possible
-        if self.location == "B":
-            self.location = "A"
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
-    def move_right(self):
-        # Move the agent to the right if possible
-        if self.location == "A":
-            self.location = "B"
+# Step 1: Sample Dataset (for demo)
+emails = [
+    "Win money now!!!", 
+    "Lowest price for medicines", 
+    "Hi, how are you?", 
+    "Meeting tomorrow at 10am", 
+    "Congratulations, you won a lottery", 
+    "Reminder: project submission"
+]
+labels = ["spam", "spam", "ham", "ham", "spam", "ham"]
 
-    def suck_dirt(self):
-        # Suck dirt in the current location if there is dirt
-        if self.dirt_status[self.location]:
-            self.dirt_status[self.location] = False
-            print(f"Sucked dirt in location {self.location}")
+# Step 2: Convert text to numbers
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(emails)
 
-    def do_nothing(self):
-        # Do nothing
-        pass
+# Step 3: Train Naive Bayes classifier
+model = MultinomialNB()
+model.fit(X, labels)
 
-    def perform_action(self, action):
-        # Perform the specified action
-        if action == "left":
-            self.move_left()
-        elif action == "right":
-            self.move_right()
-        elif action == "suck":
-            self.suck_dirt()
-        elif action == "nothing":
-            self.do_nothing()
-        else:
-            print("Invalid action")
+# Step 4: Test new email
+test_email = ["Get cheap loans now"]
+test_vector = vectorizer.transform(test_email)
+prediction = model.predict(test_vector)
 
-    def print_status(self):
-        # Print the current status of the agent
-        print(f"Location: {self.location}, Dirt Status: {self.dirt_status}")
-
-# Example usage:
-agent = VacuumCleanerAgent()
-
-
-# Move the agent, suck dirt, and do nothing
-
-agent.perform_action("left")
-agent.print_status()
-agent.perform_action("suck")
-agent.print_status()
-agent.perform_action("nothing")
-agent.print_status()
+print("Email:", test_email[0])
+print("Prediction:", prediction[0])
 ```
 ### Sample Output:
 
-425810495-d1198ba7-da19-413b-9907-4844afae627f
+<img width="491" height="67" alt="image" src="https://github.com/user-attachments/assets/5b85651b-f9e3-4833-bcde-ce94c5f6647d" />
+
 
 ### Result:
+Thus, the program for Email Spam Filter was implemented and executed successfully.
